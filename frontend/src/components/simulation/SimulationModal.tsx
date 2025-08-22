@@ -10,12 +10,11 @@ import {
   Space,
   Button,
   message,
-  Collapse,
   Typography,
   Divider,
   Radio,
-  Tag,
-  Slider
+  Slider,
+  Checkbox
 } from 'antd';
 import { 
   ExperimentOutlined,
@@ -75,7 +74,10 @@ export const SimulationModal: React.FC<SimulationModalProps> = ({
       await createMutation.mutateAsync({
         projectId,
         name: values.name,
-        rule_config: ruleConfig
+        rules: [{
+          name: selectedRule,
+          config: ruleConfig
+        } as any]
       });
       
       message.success('Simulation started successfully!');
@@ -121,8 +123,10 @@ export const SimulationModal: React.FC<SimulationModalProps> = ({
 
       const result = await previewMutation.mutateAsync({
         projectId,
-        rule_name: selectedRule,
-        rule_config: ruleConfig,
+        rules: [{
+          name: selectedRule,
+          config: ruleConfig
+        } as any],
         preview_count: 5
       });
       

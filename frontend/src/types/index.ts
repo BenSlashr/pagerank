@@ -17,6 +17,8 @@ export interface Page {
 }
 
 export interface LinkingRule {
+  name?: string;
+  config?: any;
   source_types: string[];
   source_categories: string[];
   target_types: string[];

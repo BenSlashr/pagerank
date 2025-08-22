@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Row, Col, Typography, Space, Tag, Tooltip } from 'antd';
+import { Card, Row, Col, Space, Tag, Tooltip } from 'antd';
 import { 
   ScatterChart, 
   Scatter, 
@@ -10,15 +10,13 @@ import {
   Cell,
   BarChart,
   Bar,
-  LineChart,
-  Line,
   Area,
   AreaChart
 } from 'recharts';
 import { BarChartOutlined, LineChartOutlined, DotChartOutlined } from '@ant-design/icons';
-import { useGSCData, type GSCData } from '../../hooks/useGSC';
+import { useGSCData } from '../../hooks/useGSC';
 
-const { Title, Text } = Typography;
+// const { Text } = Typography;
 
 interface GSCCorrelationChartProps {
   projectId: number;
@@ -118,22 +116,22 @@ export const GSCCorrelationChart: React.FC<GSCCorrelationChartProps> = ({
     }).filter(item => item.count > 0);
   }, [correlationData]);
 
-  const formatTooltip = (value: any, name: string, props: any) => {
-    const data = props.payload;
-    if (!data) return [value, name];
+  // const formatTooltip = (value: any, name: string, props: any) => {
+  //   const data = props.payload;
+  //   if (!data) return [value, name];
 
-    return [
-      <div key="tooltip" style={{ fontSize: '12px' }}>
-        <div><strong>{data.url.length > 40 ? `${data.url.substring(0, 40)}...` : data.url}</strong></div>
-        <div>PageRank: {data.pagerank.toFixed(6)}</div>
-        <div>Impressions: {data.impressions.toLocaleString()}</div>
-        <div>Clics: {data.clicks.toLocaleString()}</div>
-        <div>Position: #{data.position.toFixed(1)}</div>
-        <div>Score Trafic: {data.traffic_score.toLocaleString()}</div>
-      </div>,
-      ''
-    ];
-  };
+  //   return [
+  //     <div key="tooltip" style={{ fontSize: '12px' }}>
+  //       <div><strong>{data.url.length > 40 ? `${data.url.substring(0, 40)}...` : data.url}</strong></div>
+  //       <div>PageRank: {data.pagerank.toFixed(6)}</div>
+  //       <div>Impressions: {data.impressions.toLocaleString()}</div>
+  //       <div>Clics: {data.clicks.toLocaleString()}</div>
+  //       <div>Position: #{data.position.toFixed(1)}</div>
+  //       <div>Score Trafic: {data.traffic_score.toLocaleString()}</div>
+  //     </div>,
+  //     ''
+  //   ];
+  // };
 
   return (
     <Row gutter={[16, 16]}>
@@ -165,10 +163,7 @@ export const GSCCorrelationChart: React.FC<GSCCorrelationChartProps> = ({
                 tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
                 label={{ value: 'Impressions GSC', angle: -90, position: 'insideLeft' }}
               />
-              <Tooltip content={({ active, payload }) => {
-                if (!active || !payload || !payload[0]) return null;
-                return formatTooltip(null, '', payload[0]);
-              }} />
+              <Tooltip />
               <Scatter data={correlationData}>
                 {correlationData.map((entry, index) => (
                   <Cell 
@@ -222,10 +217,7 @@ export const GSCCorrelationChart: React.FC<GSCCorrelationChartProps> = ({
                 tickFormatter={(value) => value.toLocaleString()}
                 label={{ value: 'Clics GSC', angle: -90, position: 'insideLeft' }}
               />
-              <Tooltip content={({ active, payload }) => {
-                if (!active || !payload || !payload[0]) return null;
-                return formatTooltip(null, '', payload[0]);
-              }} />
+              <Tooltip />
               <Scatter data={correlationData}>
                 {correlationData.map((entry, index) => (
                   <Cell 
@@ -271,10 +263,7 @@ export const GSCCorrelationChart: React.FC<GSCCorrelationChartProps> = ({
               <YAxis 
                 label={{ value: 'Nombre de pages', angle: -90, position: 'insideLeft' }}
               />
-              <Tooltip 
-                formatter={(value: any, name: string) => [`${value} pages`, 'Nombre de pages']}
-                labelFormatter={(label) => `Tranche: ${label} impressions`}
-              />
+              <Tooltip />
               <Bar dataKey="count" name="Pages">
                 {trafficDistribution.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
@@ -314,16 +303,7 @@ export const GSCCorrelationChart: React.FC<GSCCorrelationChartProps> = ({
                 tickFormatter={(value) => value.toFixed(0)}
                 label={{ value: 'Score Performance', angle: -90, position: 'insideLeft' }}
               />
-              <Tooltip 
-                formatter={(value: any, _name: string, _props: any) => [
-                  `${value.toFixed(2)}`,
-                  'Score Performance'
-                ]}
-                labelFormatter={(rank: any) => {
-                  const item = correlationData[rank - 1];
-                  return item ? `#${rank}: ${item.url.substring(0, 30)}...` : `Page #${rank}`;
-                }}
-              />
+              <Tooltip />
               <Area
                 type="monotone"
                 dataKey="performance_score"

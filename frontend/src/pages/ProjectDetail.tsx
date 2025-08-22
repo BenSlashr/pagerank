@@ -267,7 +267,6 @@ const ProjectDetail: React.FC = () => {
         }
         return <Tag color="green" icon={<TrophyOutlined />}>OPTIMISÉ</Tag>;
       },
-      tooltip: 'Potentiel d\'amélioration basé sur la moyenne du site',
     },
   ];
 
@@ -400,7 +399,7 @@ const ProjectDetail: React.FC = () => {
       key: 'current_pagerank',
       width: 140,
       sorter: (a, b) => a.current_pagerank - b.current_pagerank,
-      render: (value: number, record: any) => {
+      render: (value: number) => {
         // Calculate percentile position
         if (!combinedData || combinedData.length === 0) {
           return <Text strong style={{ fontSize: '11px' }}>{value.toFixed(6)}</Text>;
@@ -416,26 +415,19 @@ const ProjectDetail: React.FC = () => {
         const percentile = Math.round((position / sortedPageRanks.length) * 100);
         
         // Determine color and label based on percentile
-        let percentileColor = '#d9d9d9';
         let percentileLabel = `top ${percentile}%`;
         
         if (percentile <= 5) {
-          percentileColor = '#722ed1'; // Purple for top 5%
           percentileLabel = `top ${percentile}%`;
         } else if (percentile <= 10) {
-          percentileColor = '#ff4d4f'; // Red for top 10%
           percentileLabel = `top ${percentile}%`;
         } else if (percentile <= 25) {
-          percentileColor = '#fa8c16'; // Orange for top 25%
           percentileLabel = `top ${percentile}%`;
         } else if (percentile <= 50) {
-          percentileColor = '#1890ff'; // Blue for top 50%
           percentileLabel = `top ${percentile}%`;
         } else if (percentile <= 75) {
-          percentileColor = '#52c41a'; // Green for top 75%
           percentileLabel = `${percentile}%`;
         } else {
-          percentileColor = '#d9d9d9'; // Gray for bottom 25%
           percentileLabel = `${percentile}%`;
         }
         
@@ -452,7 +444,6 @@ const ProjectDetail: React.FC = () => {
                 percentile <= 50 ? 'blue' :
                 percentile <= 75 ? 'green' : 'default'
               }
-              size="small"
               style={{ fontSize: '9px', lineHeight: '14px' }}
             >
               {percentileLabel}
@@ -467,8 +458,8 @@ const ProjectDetail: React.FC = () => {
       width: 80,
       render: (_, record) => (
         record.has_gsc_data ? 
-          <Tag color="green" size="small">✓ GSC</Tag> : 
-          <Tag color="default" size="small">- GSC</Tag>
+          <Tag color="green">✓ GSC</Tag> : 
+          <Tag color="default">- GSC</Tag>
       ),
       filters: [
         { text: 'Avec données GSC', value: true },
@@ -656,8 +647,7 @@ const ProjectDetail: React.FC = () => {
                     percent={(advancedMetrics.topPages / (pages?.length || 1)) * 100}
                     strokeColor="#f5222d"
                     showInfo={false}
-                    size="small"
-                  />
+                        />
                 </Card>
               </Col>
               <Col xs={24} sm={8}>
@@ -673,8 +663,7 @@ const ProjectDetail: React.FC = () => {
                     percent={(advancedMetrics.lowPages / (pages?.length || 1)) * 100}
                     strokeColor="#faad14"
                     showInfo={false}
-                    size="small"
-                  />
+                        />
                 </Card>
               </Col>
               <Col xs={24} sm={8}>
@@ -729,8 +718,7 @@ const ProjectDetail: React.FC = () => {
                             type === 'blog' ? '#fa8c16' : '#d9d9d9'
                           }
                           showInfo={false}
-                          size="small"
-                        />
+                                    />
                       </div>
                     ))}
                   </div>
@@ -767,7 +755,7 @@ const ProjectDetail: React.FC = () => {
                               {page.url.length > 35 ? `${page.url.substring(0, 35)}...` : page.url}
                             </Text>
                           </div>
-                          <Tag color="blue" size="small">{page.type}</Tag>
+                          <Tag color="blue">{page.type}</Tag>
                         </div>
                         <div style={{ textAlign: 'right' }}>
                           <Text strong style={{ color: index < 3 ? '#fa8c16' : '#1890ff' }}>
@@ -778,8 +766,7 @@ const ProjectDetail: React.FC = () => {
                             percent={(page.pagerank / (effectiveAnalysis.max_pagerank || 1)) * 100}
                             strokeColor={index < 3 ? '#fa8c16' : '#1890ff'}
                             showInfo={false}
-                            size="small"
-                            style={{ width: '60px', marginTop: 2 }}
+                                          style={{ width: '60px', marginTop: 2 }}
                           />
                         </div>
                       </div>
@@ -887,7 +874,7 @@ const ProjectDetail: React.FC = () => {
                                 🎯 Répartition des {totalPages.toLocaleString()} pages par tranche
                               </h4>
                               <div style={{ height: '400px', overflowY: 'auto' }}>
-                                {dataForChart.map((item, index) => {
+                                {dataForChart.map((item) => {
                                   const percentage = totalPages > 0 ? (item.count / totalPages * 100) : 0;
                                   const prPercentage = totalPageRank > 0 ? (item.totalPageRank / totalPageRank * 100) : 0;
                                   const barWidth = Math.min(maxCount > 0 ? (item.count / maxCount * 100) : 0, 100);
@@ -1070,7 +1057,7 @@ const ProjectDetail: React.FC = () => {
                   <Card title="📋 PageRank moyen par type de page" style={{ height: '400px', borderRadius: '12px' }}>
                     <div style={{ height: '340px', overflowY: 'auto', padding: '12px' }}>
                       {Object.entries(effectiveAnalysis.type_distribution).map(([type, stats]) => {
-                        const avgChange = (stats.average_pagerank / effectiveAnalysis.average_pagerank - 1) * 100;
+                        // const avgChange = (stats.average_pagerank / effectiveAnalysis.average_pagerank - 1) * 100;
                         return (
                           <div key={type} style={{ 
                             padding: '10px', 
@@ -1081,7 +1068,7 @@ const ProjectDetail: React.FC = () => {
                             marginBottom: '8px'
                           }}>
                             <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '4px' }}>
-                              <Tag size="small" color={type === 'product' ? 'blue' : type === 'category' ? 'green' : 'orange'}>
+                              <Tag color={type === 'product' ? 'blue' : type === 'category' ? 'green' : 'orange'}>
                                 {type}
                               </Tag>
                             </div>
@@ -1112,7 +1099,7 @@ const ProjectDetail: React.FC = () => {
                           .map(p => p.current_pagerank)
                           .sort((a, b) => b - a);
                         
-                        const getPercentile = (arr, percentile) => {
+                        const getPercentile = (arr: number[], percentile: number) => {
                           const index = Math.ceil((percentile / 100) * arr.length) - 1;
                           return arr[Math.max(0, index)] || 0;
                         };
@@ -1210,8 +1197,7 @@ const ProjectDetail: React.FC = () => {
                         </Text>
                         {!hasGSCData && (
                           <Button 
-                            size="small"
-                            icon={<GoogleOutlined />}
+                                          icon={<GoogleOutlined />}
                             onClick={() => setGscImportModalVisible(true)}
                             style={{ borderColor: '#4285F4', color: '#4285F4' }}
                           >
@@ -1236,8 +1222,7 @@ const ProjectDetail: React.FC = () => {
                       dataSource={combinedData}
                       loading={combinedLoading}
                       rowKey="id"
-                      size="small"
-                      scroll={{ x: 1000 }}
+                              scroll={{ x: 1000 }}
                       pagination={{
                         showSizeChanger: true,
                         showQuickJumper: true,
@@ -1301,7 +1286,6 @@ const ProjectDetail: React.FC = () => {
               dataSource={pages}
               loading={pagesLoading}
               rowKey="id"
-              size="small"
               scroll={{ x: 1200 }}
               pagination={{
                 showSizeChanger: true,
@@ -1363,7 +1347,6 @@ const ProjectDetail: React.FC = () => {
               columns={simulationColumns}
               dataSource={simulations}
               rowKey="id"
-              size="small"
               locale={{
                 emptyText: (
                   <div style={{ padding: '40px', textAlign: 'center' }}>
@@ -1388,7 +1371,7 @@ const ProjectDetail: React.FC = () => {
     },
     {
       key: '4',
-      label: hasGSCData ? `📊 Analyse GSC (${totalUrls})` : '📊 Analyse GSC',
+      label: hasGSCData ? `📊 Analyse GSC (${combinedData?.length || 0})` : '📊 Analyse GSC',
       children: (
         <div>
           {hasGSCData ? (

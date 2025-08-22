@@ -137,11 +137,11 @@ export const useCombinedPagesGSCData = (projectId: number) => {
       const gscData = gscResponse.data?.data || [];
       
       // Create a map of GSC data by URL
-      const gscMap = new Map(gscData.map((item: GSCData) => [item.url, item]));
+      const gscMap = new Map<string, GSCData>(gscData.map((item: GSCData) => [item.url, item]));
       
       // Combine pages with GSC data
       return pages.map((page: any) => {
-        const gscItem = gscMap.get(page.url);
+        const gscItem: GSCData | undefined = gscMap.get(page.url);
         
         return {
           id: page.id,

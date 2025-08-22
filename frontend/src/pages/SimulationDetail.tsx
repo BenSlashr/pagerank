@@ -303,7 +303,7 @@ const SimulationDetail: React.FC = () => {
             position <= 3 ? 'red' :
             position <= 10 ? 'orange' :
             position <= 20 ? 'blue' : 'default'
-          } size="small">
+          }>
             #{position.toFixed(1)}
           </Tag>
         );
@@ -640,7 +640,7 @@ const SimulationDetail: React.FC = () => {
               
               {(() => {
                 // Group results by type
-                const typeGroups = {};
+                const typeGroups: Record<string, { current: number[], new: number[] }> = {};
                 results.forEach(result => {
                   const type = result.type || 'autre';
                   if (!typeGroups[type]) {
@@ -700,7 +700,7 @@ const SimulationDetail: React.FC = () => {
                   // Calculer la distribution avant/après
                   const beforeCounts = levels.map(level => ({
                     ...level,
-                    count: data.current.filter(pr => {
+                    count: data.current.filter((pr: number) => {
                       if (level.max === Infinity) return pr >= level.min;
                       return pr >= level.min && pr < level.max;
                     }).length
@@ -708,7 +708,7 @@ const SimulationDetail: React.FC = () => {
                   
                   const afterCounts = levels.map(level => ({
                     ...level,
-                    count: data.new.filter(pr => {
+                    count: data.new.filter((pr: number) => {
                       if (level.max === Infinity) return pr >= level.min;
                       return pr >= level.min && pr < level.max;
                     }).length

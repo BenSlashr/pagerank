@@ -34,7 +34,7 @@ import {
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { UploadProps } from 'antd';
-import { useProjects, useImportProject, useImportMultiProject } from '../hooks/useProjects';
+import { useProjects, useImportMultiProject } from '../hooks/useProjects';
 import type { Project } from '../types';
 
 const { Title, Text } = Typography;
