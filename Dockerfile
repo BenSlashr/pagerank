@@ -3,12 +3,12 @@
 # Frontend (React/Vite) + Backend (FastAPI)
 # ========================================
 
-FROM node:18-alpine as frontend-builder
+FROM node:18-alpine AS frontend-builder
 
 # Build frontend
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 
 COPY frontend/ ./
 RUN npm run build
@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     libffi-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
