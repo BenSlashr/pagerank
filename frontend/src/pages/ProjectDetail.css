@@ -1,0 +1,44 @@
+/* Styles pour le tableau récapitulatif ProjectDetail */
+
+.opportunity-row {
+  background-color: #fff7e6 !important;
+  border-left: 4px solid #fa8c16 !important;
+}
+
+.opportunity-row:hover {
+  background-color: #fff2e8 !important;
+}
+
+.underperforming-row {
+  background-color: #e6f7ff !important;
+  border-left: 4px solid #52c41a !important;
+}
+
+.underperforming-row:hover {
+  background-color: #e1f5fe !important;
+}
+
+.balanced-row {
+  background-color: #f6ffed !important;
+  border-left: 4px solid #1890ff !important;
+}
+
+.balanced-row:hover {
+  background-color: #f1f8e9 !important;
+}
+
+/* Style pour les tooltips dans les en-têtes de colonnes */
+.ant-tooltip {
+  font-size: 12px;
+}
+
+/* Styles pour améliorer la lisibilité du tableau */
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background: inherit !important;
+}
+
+.opportunity-row td, 
+.underperforming-row td, 
+.balanced-row td {
+  transition: background-color 0.3s ease;
+}

@@ -1,0 +1,25 @@
+url,type,category,title,Extracteur 1
+https://monsite.fr/,accueil,,Accueil - Mon Site,Bienvenue sur notre site de vente en ligne spécialisé dans les équipements de jardin et d'extérieur
+https://monsite.fr/produits/,catégorie,jardin,Produits de jardinage,Découvrez notre large gamme de produits pour l'entretien et l'aménagement de votre jardin
+https://monsite.fr/produits/outils/,catégorie,outils,Outils de jardinage,Outils professionnels pour tous vos travaux de jardinage : bêches pelles râteaux sécateurs
+https://monsite.fr/produits/plantes/,catégorie,plantes,Plantes et végétaux,Large sélection de plantes d'intérieur et d'extérieur : fleurs arbustes légumes graines
+https://monsite.fr/produits/arrosage/,catégorie,arrosage,Système d'arrosage,Équipements d'arrosage automatique et manuel : tuyaux arrosoirs programmateurs
+https://monsite.fr/produits/outils/beche-pro,produit,outils,Bêche professionnelle,Bêche robuste en acier forgé avec manche ergonomique pour tous travaux de terrassement
+https://monsite.fr/produits/outils/pelle-jardin,produit,outils,Pelle de jardin,Pelle légère et maniable idéale pour planter rempoter et entretenir vos plantations
+https://monsite.fr/produits/outils/rateau-metal,produit,outils,Râteau métallique,Râteau solide avec dents en acier pour nettoyer et niveler la terre du jardin
+https://monsite.fr/produits/outils/secateur,produit,outils,Sécateur de précision,Sécateur haut de gamme pour tailler arbustes rosiers et branches jusqu'à 2cm
+https://monsite.fr/produits/plantes/rosier,produit,plantes,Rosier rouge,Magnifique rosier aux fleurs rouge vif parfumées floraison de mai à octobre
+https://monsite.fr/produits/plantes/lavande,produit,plantes,Lavande de Provence,Lavande authentique aux propriétés relaxantes et parfum méditerranéen intense
+https://monsite.fr/produits/plantes/basilic,produit,plantes,Basilic frais,Plant de basilic aromatique parfait pour la cuisine méditerranéenne et les tisanes
+https://monsite.fr/produits/plantes/tomate,produit,plantes,Plants de tomates,Variété productive de tomates cerises sucrées idéales pour potager et balcon
+https://monsite.fr/produits/arrosage/tuyau,produit,arrosage,Tuyau d'arrosage 25m,Tuyau flexible et résistant pour arroser efficacement jardin et terrasse
+https://monsite.fr/produits/arrosage/arrosoir,produit,arrosage,Arrosoir 10L,Arrosoir ergonomique avec pomme d'arrosage fine pour un arrosage en douceur
+https://monsite.fr/produits/arrosage/programmateur,produit,arrosage,Programmateur automatique,Système automatique pour arroser vos plantes même en votre absence
+https://monsite.fr/blog/,blog,,Blog jardinage,Conseils et astuces pour réussir votre jardin toute l'année
+https://monsite.fr/blog/entretien-outils,blog,conseils,Entretien des outils,Comment bien nettoyer et entretenir vos outils de jardinage pour les garder efficaces
+https://monsite.fr/blog/planter-rosiers,blog,conseils,Planter des rosiers,Guide complet pour planter et entretenir vos rosiers : période plantation taille arrosage
+https://monsite.fr/blog/potager-balcon,blog,conseils,Potager sur balcon,Créer un potager urbain sur votre balcon : choix des plantes bacs et conseils pratiques
+https://monsite.fr/blog/arrosage-ete,blog,conseils,Arrosage en été,Techniques et horaires d'arrosage pour préserver vos plantes durant les fortes chaleurs
+https://monsite.fr/contact,autre,,Contact,Contactez notre équipe pour tous renseignements sur nos produits et services jardinage
+https://monsite.fr/cgv,autre,,Conditions générales,Conditions générales de vente et modalités de livraison de nos produits
+https://monsite.fr/mentions-legales,autre,,Mentions légales,Informations légales et données personnelles conformément à la réglementation en vigueur

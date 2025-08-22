@@ -1,0 +1,5 @@
+Adresse,Code HTTP,Statut,Title 1,H1-1
+https://example.com/,200,OK,Home Page,Welcome
+https://example.com/about,200,OK,About Us,About Our Company  
+https://example.com/products,200,OK,Our Products,Product Catalog
+https://example.com/contact,200,OK,Contact Us,Get In Touch
