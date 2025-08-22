@@ -29,7 +29,7 @@ const App: React.FC = () => {
     >
       <QueryClientProvider client={queryClient}>
         <AntdApp>
-          <Router>
+          <Router basename="/pagerank">
             <Layout>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
