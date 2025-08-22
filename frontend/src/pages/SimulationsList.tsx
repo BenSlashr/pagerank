@@ -8,7 +8,6 @@ import {
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { useProjects } from '../hooks/useProjects';
-import { useSimulations } from '../hooks/useSimulations';
 import type { Simulation } from '../types';
 
 const { Title, Text } = Typography;
@@ -68,7 +67,7 @@ const SimulationsList: React.FC = () => {
         return (
           <Space direction="vertical" size="small">
             {rules.slice(0, 2).map((rule, index) => (
-              <Tag key={index} size="small">
+              <Tag key={index}>
                 {rule.source_types?.length > 0 ? rule.source_types.join(',') : 'toutes'} 
                 → {rule.target_types?.length > 0 ? rule.target_types.join(',') : 'toutes'}
                 ({rule.selection_method})

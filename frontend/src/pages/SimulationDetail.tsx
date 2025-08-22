@@ -47,7 +47,7 @@ const SimulationDetail: React.FC = () => {
   // Get project ID from simulation data to fetch GSC data
   console.log('📊 Full simulation data:', simulationData?.simulation);
   console.log('📊 Simulation keys:', Object.keys(simulationData?.simulation || {}));
-  const projectId = simulationData?.simulation?.project_id;
+  const projectId = simulationData?.simulation?.id;
   console.log('📊 SimulationDetail - ProjectID for GSC:', projectId);
   const { data: gscSummary } = useGSCData(projectId || 0);
   console.log('📊 SimulationDetail - GSC Summary:', gscSummary);
@@ -99,8 +99,6 @@ const SimulationDetail: React.FC = () => {
     }
   };
 
-  // Process data for charts
-  const chartData = simulationData?.results || [];
   
   // Prepare type impact data
   const typeImpactData = React.useMemo(() => {
@@ -352,7 +350,7 @@ const SimulationDetail: React.FC = () => {
           <Link to="/"><HomeOutlined /></Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <Link to={`/projects/${simulation.project_id}`}>
+          <Link to={`/projects/${simulation.id}`}>
             <ProjectOutlined /> Project
           </Link>
         </Breadcrumb.Item>
@@ -490,7 +488,7 @@ const SimulationDetail: React.FC = () => {
                       marginBottom: '8px'
                     }}>
                       <div style={{ fontSize: '12px', fontWeight: 'bold', marginBottom: '4px' }}>
-                        <Tag size="small" color={typeData.type === 'produit' ? 'blue' : typeData.type === 'catégorie' ? 'green' : 'orange'}>
+                        <Tag color={typeData.type === 'produit' ? 'blue' : typeData.type === 'catégorie' ? 'green' : 'orange'}>
                           {typeData.type}
                         </Tag>
                       </div>
@@ -861,7 +859,6 @@ const SimulationDetail: React.FC = () => {
           rowKey="page_id"
           size="small"
           scroll={{ x: 1320 }} // Add horizontal scroll for GSC columns (removed GSC Status column)
-          defaultSorter={{ field: 'percent_change', order: 'descend' }}
           pagination={{
             showSizeChanger: true,
             showQuickJumper: true,

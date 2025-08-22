@@ -9,7 +9,6 @@ import {
   Upload,
   Form,
   Input,
-  message,
   Tag,
   Popconfirm,
   App,
@@ -31,7 +30,6 @@ import {
   ThunderboltOutlined
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
-import type { UploadProps } from 'antd';
 import { 
   useProjects, 
   useImportProject, 
@@ -56,7 +54,6 @@ const Dashboard: React.FC = () => {
   const { message: messageApi } = App.useApp();
   
   const { data: projects, isLoading } = useProjects();
-  const importMutation = useImportProject();
   const importMultiMutation = useImportMultiProject();
   const updateMutation = useUpdateProject();
   const deleteMutation = useDeleteProject();

@@ -104,7 +104,7 @@ export const useGSCPageRankAnalysis = (projectId: number) => {
 export const useHasGSCData = (projectId: number) => {
   const { data } = useGSCData(projectId);
   return {
-    hasGSCData: data?.total_urls > 0,
+    hasGSCData: (data?.total_urls || 0) > 0,
     totalUrls: data?.total_urls || 0,
     totalImpressions: data?.total_impressions || 0,
     totalClicks: data?.total_clicks || 0
@@ -152,7 +152,7 @@ export const useCombinedPagesGSCData = (projectId: number) => {
           gsc_clicks: gscItem?.clicks || 0,
           gsc_ctr: gscItem?.ctr || 0,
           gsc_position: gscItem?.position || 0,
-          gsc_traffic_score: gscItem ? (gscItem.impressions + (gscItem.clicks * 10)) : 0,
+          gsc_traffic_score: gscItem ? ((gscItem.impressions || 0) + ((gscItem.clicks || 0) * 10)) : 0,
           has_gsc_data: !!gscItem
         };
       });

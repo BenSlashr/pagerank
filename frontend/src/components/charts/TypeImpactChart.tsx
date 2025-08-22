@@ -22,13 +22,12 @@ interface TypeImpactChartProps {
   title?: string;
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 export const TypeImpactChart: React.FC<TypeImpactChartProps> = ({ 
   data, 
   title = "Impact by Page Type" 
 }) => {
-  const formatTooltip = (value: any, name: string, props: any) => {
+  const formatTooltip = (value: any, _name: string, props: any) => {
     const { payload } = props;
     return [
       `Avg Delta: ${value.toFixed(6)}`,

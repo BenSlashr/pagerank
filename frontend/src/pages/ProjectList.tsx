@@ -9,7 +9,6 @@ import {
   Upload,
   Form,
   Input,
-  message,
   Tag,
   App,
   Row,
@@ -17,15 +16,12 @@ import {
   Statistic,
   Progress,
   Alert,
-  Tooltip,
   Breadcrumb
 } from 'antd';
 import { Link } from 'react-router-dom';
 import { 
   PlusOutlined, 
   UploadOutlined, 
-  EyeOutlined,
-  CalendarOutlined,
   ProjectOutlined,
   LinkOutlined,
   ExperimentOutlined,
@@ -52,7 +48,6 @@ const ProjectList: React.FC = () => {
   const { message: messageApi } = App.useApp();
   
   const { data: projects, isLoading } = useProjects();
-  const importMutation = useImportProject();
   const importMultiMutation = useImportMultiProject();
 
   // Calculate summary stats

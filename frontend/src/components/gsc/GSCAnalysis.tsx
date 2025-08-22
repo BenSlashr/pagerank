@@ -13,7 +13,7 @@ import {
   LinkOutlined
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
-import { useGSCData, useGSCPageRankAnalysis, GSCData, GSCPageRankAnalysis } from '../../hooks/useGSC';
+import { useGSCData, useGSCPageRankAnalysis } from '../../hooks/useGSC';
 
 const { Title, Text } = Typography;
 

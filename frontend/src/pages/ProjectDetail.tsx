@@ -12,12 +12,10 @@ import {
   Space,
   Tag,
   Tabs,
-  Modal,
   Progress,
   Tooltip,
   Breadcrumb,
   Alert,
-  message,
   App
 } from 'antd';
 import { 
@@ -44,7 +42,7 @@ import { GSCImportModal } from '../components/gsc/GSCImportModal';
 import { GSCAnalysis } from '../components/gsc/GSCAnalysis';
 import { GSCCorrelationChart } from '../components/gsc/GSCCorrelationChart';
 import { useHasGSCData, useCombinedPagesGSCData } from '../hooks/useGSC';
-import type { Page, Simulation, LinkingRule } from '../types';
+import type { Page, Simulation } from '../types';
 
 const { Title, Text } = Typography;
 
@@ -59,7 +57,7 @@ const ProjectDetail: React.FC = () => {
   const { data: pages, isLoading: pagesLoading } = useProjectPages(id);
   const { data: simulations } = useSimulations(id);
   const { data: analysis } = useProjectAnalysis(id);
-  const { hasGSCData, totalUrls, totalImpressions, totalClicks } = useHasGSCData(id);
+  const { hasGSCData } = useHasGSCData(id);
   const { data: combinedData, isLoading: combinedLoading } = useCombinedPagesGSCData(id);
   const calculatePagerank = useCalculatePagerank();
   const { message: messageApi } = App.useApp();
@@ -391,7 +389,7 @@ const ProjectDetail: React.FC = () => {
           type === 'product' ? 'blue' :
           type === 'category' ? 'green' :
           type === 'blog' ? 'orange' : 'default'
-        } size="small">
+        }>
           {type}
         </Tag>
       ),
@@ -516,7 +514,7 @@ const ProjectDetail: React.FC = () => {
             value <= 3 ? 'red' :
             value <= 10 ? 'orange' :
             value <= 20 ? 'blue' : 'default'
-          } size="small">
+          }>
             #{value.toFixed(1)}
           </Tag>
         );
@@ -1408,7 +1406,12 @@ const ProjectDetail: React.FC = () => {
                 </Title>
                 <GSCCorrelationChart 
                   projectId={id}
-                  pages={pages}
+                  pages={pages?.map(p => ({
+                    id: p.id,
+                    url: p.url,
+                    current_pagerank: p.current_pagerank,
+                    type: p.type || 'other'
+                  }))}
                 />
               </div>
             </div>

@@ -13,7 +13,6 @@ import {
   Typography,
   Divider,
   Tag,
-  Checkbox,
   Row,
   Col,
   Tooltip
@@ -26,7 +25,7 @@ import {
   CopyOutlined
 } from '@ant-design/icons';
 import { useCreateSimulation, usePreviewRules } from '../../hooks/useSimulations';
-import { LinkingRule, PageBoost, PageProtect } from '../../types';
+import { LinkingRule } from '../../types';
 
 const { Option } = Select;
 const { Text } = Typography;
@@ -183,12 +182,6 @@ export const MultiRuleSimulationModal: React.FC<MultiRuleSimulationModalProps> =
     });
   };
 
-  const handleRemoveRule = (index: number) => {
-    const rules = form.getFieldValue('rules') || [];
-    form.setFieldsValue({
-      rules: rules.filter((_: any, i: number) => i !== index)
-    });
-  };
 
   const handleDuplicateRule = (index: number) => {
     const rules = form.getFieldValue('rules') || [];
@@ -198,16 +191,6 @@ export const MultiRuleSimulationModal: React.FC<MultiRuleSimulationModalProps> =
     });
   };
 
-  const getSelectionMethodLabel = (method: string) => {
-    const labels = {
-      'category': '🔗 Même catégorie',
-      'semantic': '🧠 Proximité sémantique', 
-      'random': '🎲 Aléatoire',
-      'pagerank_high': '⭐ PageRank élevé',
-      'pagerank_low': '📉 PageRank faible'
-    };
-    return labels[method as keyof typeof labels] || method;
-  };
 
   return (
     <Modal
@@ -248,7 +231,7 @@ export const MultiRuleSimulationModal: React.FC<MultiRuleSimulationModalProps> =
         </Divider>
 
         <Form.List name="rules">
-          {(fields, { add, remove }) => (
+          {(fields, { remove }) => (
             <div>
               {fields.map(({ key, name, ...restField }, index) => (
                 <Card 
@@ -576,14 +559,14 @@ https://example.com/about`}
                   <div>
                     <strong>De:</strong> {link.from_url.length > 60 ? 
                       `${link.from_url.substring(0, 60)}...` : link.from_url}
-                    <Tag color="blue" size="small" style={{ marginLeft: 8 }}>
+                    <Tag color="blue" style={{ marginLeft: 8 }}>
                       {link.from_type}
                     </Tag>
                   </div>
                   <div style={{ color: '#666' }}>
                     <strong>Vers:</strong> {link.to_url.length > 60 ? 
                       `${link.to_url.substring(0, 60)}...` : link.to_url}
-                    <Tag color="green" size="small" style={{ marginLeft: 8 }}>
+                    <Tag color="green" style={{ marginLeft: 8 }}>
                       {link.to_type}
                     </Tag>
                   </div>

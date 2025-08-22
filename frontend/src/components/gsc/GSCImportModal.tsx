@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Upload, Form, DatePicker, Alert, Progress, Typography, Space, Button } from 'antd';
 import { InboxOutlined, GoogleOutlined, UploadOutlined } from '@ant-design/icons';
-import type { RcFile, UploadProps } from 'antd/es/upload';
+import type { UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import api from '../../services/api';
 
 const { Dragger } = Upload;
 const { RangePicker } = DatePicker;
@@ -52,7 +51,7 @@ export const GSCImportModal: React.FC<GSCImportModalProps> = ({
     console.log('Uploading file:', originalFile.name, 'Size:', originalFile.size);
 
     // Create a clean File object without extra properties
-    const cleanFile = new File([originalFile], originalFile.name, {
+    const cleanFile = new File([originalFile as BlobPart], originalFile.name, {
       type: originalFile.type || 'text/csv'
     });
 

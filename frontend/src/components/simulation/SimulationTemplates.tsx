@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Row, Col, Button, Tag, Space, Typography } from 'antd';
+import { Card, Row, Col, Tag, Space, Typography } from 'antd';
 import { 
   ShoppingOutlined, 
   ReadOutlined, 
@@ -247,7 +247,7 @@ export const SimulationTemplates: React.FC<SimulationTemplatesProps> = ({
                   </Space>
                 }
                 extra={
-                  <Tag color={template.color} size="small">
+                  <Tag color={template.color}>
                     {template.rules.length} règle{template.rules.length > 1 ? 's' : ''}
                   </Tag>
                 }
@@ -271,7 +271,6 @@ export const SimulationTemplates: React.FC<SimulationTemplatesProps> = ({
                   {template.rules.map((rule, index) => (
                     <Tag 
                       key={index} 
-                      size="small" 
                       style={{ 
                         marginBottom: 4, 
                         fontSize: '10px',

@@ -11,7 +11,6 @@ import {
   Legend
 } from 'recharts';
 
-const { Title } = Typography;
 
 interface PageRankDistributionProps {
   data: Array<{

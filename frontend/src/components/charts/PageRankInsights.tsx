@@ -12,7 +12,7 @@ import {
 } from '@ant-design/icons';
 import type { Page, ProjectAnalysis } from '../../types';
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 interface PageRankInsightsProps {
   pages?: Page[];

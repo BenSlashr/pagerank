@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Modal, 
   Form, 
@@ -15,18 +15,15 @@ import {
   Divider,
   Radio,
   Tag,
-  Checkbox,
   Slider
 } from 'antd';
 import { 
   ExperimentOutlined,
   EyeOutlined,
-  InfoCircleOutlined
 } from '@ant-design/icons';
 import { useRules, useCreateSimulation, usePreviewRules } from '../../hooks/useSimulations';
 
 const { Option } = Select;
-const { Panel } = Collapse;
 const { Text, Paragraph } = Typography;
 
 interface SimulationModalProps {
@@ -48,7 +45,7 @@ export const SimulationModal: React.FC<SimulationModalProps> = ({
   
   const { data: rules } = useRules();
   const createMutation = useCreateSimulation();
-  const previewMutation = usePreviewRule();
+  const previewMutation = usePreviewRules();
 
   const handleSubmit = async (values: any) => {
     try {
@@ -78,7 +75,6 @@ export const SimulationModal: React.FC<SimulationModalProps> = ({
       await createMutation.mutateAsync({
         projectId,
         name: values.name,
-        rule_name: selectedRule,
         rule_config: ruleConfig
       });
       
@@ -136,7 +132,6 @@ export const SimulationModal: React.FC<SimulationModalProps> = ({
     }
   };
 
-  const selectedRuleInfo = rules?.find(rule => rule.name === selectedRule);
 
   const getRuleExplanation = (ruleName: string) => {
     const explanations = {
@@ -563,7 +558,7 @@ export const SimulationModal: React.FC<SimulationModalProps> = ({
                               0.6: '60%',
                               0.8: '80%'
                             }}
-                            tooltip={{ formatter: (value) => `${(value * 100).toFixed(0)}%` }}
+                            tooltip={{ formatter: (value) => `${((value || 0) * 100).toFixed(0)}%` }}
                           />
                         </Form.Item>
                         

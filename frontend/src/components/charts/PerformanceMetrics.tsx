@@ -6,7 +6,6 @@ import {
   WarningOutlined, 
   ThunderboltOutlined,
   BarChartOutlined,
-  RiseOutlined,
   FallOutlined 
 } from '@ant-design/icons';
 import type { Page, ProjectAnalysis } from '../../types';

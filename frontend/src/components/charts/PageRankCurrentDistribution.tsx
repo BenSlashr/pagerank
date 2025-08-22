@@ -11,15 +11,13 @@ import {
   PieChart,
   Pie,
   Cell,
-  LineChart,
-  Line,
   Area,
   AreaChart
 } from 'recharts';
 import { BarChartOutlined, PieChartOutlined, LineChartOutlined } from '@ant-design/icons';
 import type { Page, ProjectAnalysis } from '../../types';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 interface PageRankCurrentDistributionProps {
   pages?: Page[];
@@ -153,12 +151,12 @@ export const PageRankCurrentDistribution: React.FC<PageRankCurrentDistributionPr
                 fill="#8884d8"
                 dataKey="totalPagerank"
               >
-                {typeDistributionData.map((entry, index) => (
+                {typeDistributionData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value: any, name: string, props: any) => [
+                formatter={(value: any, _name: string, props: any) => [
                   `${(value as number).toFixed(6)}`,
                   `PageRank total (${props.payload.count} pages)`
                 ]}
@@ -190,7 +188,7 @@ export const PageRankCurrentDistribution: React.FC<PageRankCurrentDistributionPr
                 label={{ value: 'PageRank', angle: -90, position: 'insideLeft' }}
               />
               <Tooltip 
-                formatter={(value: any, name: string, props: any) => [
+                formatter={(value: any, _name: string, props: any) => [
                   `${value.toFixed(6)}`,
                   `PageRank (#${props.payload.rank})`
                 ]}
@@ -217,7 +215,7 @@ export const PageRankCurrentDistribution: React.FC<PageRankCurrentDistributionPr
             <Col xs={24} sm={8}>
               <Text strong>Distribution des performances:</Text>
               <div style={{ marginTop: 8 }}>
-                {distributionData.map((item, index) => (
+                {distributionData.map((item) => (
                   <div key={item.range} style={{ 
                     display: 'flex', 
                     justifyContent: 'space-between', 
@@ -234,7 +232,7 @@ export const PageRankCurrentDistribution: React.FC<PageRankCurrentDistributionPr
             <Col xs={24} sm={8}>
               <Text strong>PageRank moyen par type:</Text>
               <div style={{ marginTop: 8 }}>
-                {typeDistributionData.map((item, index) => (
+                {typeDistributionData.map((item) => (
                   <div key={item.type} style={{ 
                     display: 'flex', 
                     justifyContent: 'space-between', 

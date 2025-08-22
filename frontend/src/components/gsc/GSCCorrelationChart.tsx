@@ -315,11 +315,11 @@ export const GSCCorrelationChart: React.FC<GSCCorrelationChartProps> = ({
                 label={{ value: 'Score Performance', angle: -90, position: 'insideLeft' }}
               />
               <Tooltip 
-                formatter={(value: any, name: string, props: any) => [
+                formatter={(value: any, _name: string, _props: any) => [
                   `${value.toFixed(2)}`,
                   'Score Performance'
                 ]}
-                labelFormatter={(rank) => {
+                labelFormatter={(rank: any) => {
                   const item = correlationData[rank - 1];
                   return item ? `#${rank}: ${item.url.substring(0, 30)}...` : `Page #${rank}`;
                 }}
