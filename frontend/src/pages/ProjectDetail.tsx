@@ -238,7 +238,7 @@ const ProjectDetail: React.FC = () => {
       sorter: (a, b) => a.current_pagerank - b.current_pagerank,
       render: (value: number) => (
         <Space direction="vertical" size={0}>
-          <Text strong>{value.toFixed(6)}</Text>
+          <Text strong>{(value || 0).toFixed(6)}</Text>
           <Progress 
             percent={(value / (effectiveAnalysis?.max_pagerank || 1)) * 100}
             showInfo={false}
@@ -402,7 +402,7 @@ const ProjectDetail: React.FC = () => {
       render: (value: number) => {
         // Calculate percentile position
         if (!combinedData || combinedData.length === 0) {
-          return <Text strong style={{ fontSize: '11px' }}>{value.toFixed(6)}</Text>;
+          return <Text strong style={{ fontSize: '11px' }}>{(value || 0).toFixed(6)}</Text>;
         }
         
         // Sort all PageRank values in descending order
@@ -434,7 +434,7 @@ const ProjectDetail: React.FC = () => {
         return (
           <Space direction="vertical" size={0}>
             <Text strong style={{ fontSize: '11px' }}>
-              {value.toFixed(6)}
+              {(value || 0).toFixed(6)}
             </Text>
             <Tag 
               color={
@@ -708,7 +708,7 @@ const ProjectDetail: React.FC = () => {
                             </Tag>
                             <Text>{stats.count} pages</Text>
                           </Space>
-                          <Text strong>PR: {stats.average_pagerank.toFixed(6)}</Text>
+                          <Text strong>PR: {(stats?.average_pagerank || 0).toFixed(6)}</Text>
                         </div>
                         <Progress 
                           percent={(stats.count / (project?.total_pages || 1)) * 100}
@@ -759,7 +759,7 @@ const ProjectDetail: React.FC = () => {
                         </div>
                         <div style={{ textAlign: 'right' }}>
                           <Text strong style={{ color: index < 3 ? '#fa8c16' : '#1890ff' }}>
-                            {page.pagerank.toFixed(6)}
+                            {(page?.pagerank || 0).toFixed(6)}
                           </Text>
                           <br />
                           <Progress 
@@ -926,22 +926,22 @@ const ProjectDetail: React.FC = () => {
                                           color: barWidth > 25 ? 'white' : '#333',
                                           fontWeight: 'bold'
                                         }}>
-                                          {percentage.toFixed(1)}% des pages
+                                          {(percentage || 0).toFixed(1)}% des pages
                                         </div>
                                       </div>
                                       
                                       {/* Statistiques détaillées */}
                                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', fontSize: '11px', color: '#666' }}>
                                         <div>
-                                          <strong>{percentage.toFixed(1)}%</strong><br/>
+                                          <strong>{(percentage || 0).toFixed(1)}%</strong><br/>
                                           des pages
                                         </div>
                                         <div>
-                                          <strong>{prPercentage.toFixed(1)}%</strong><br/>
+                                          <strong>{(prPercentage || 0).toFixed(1)}%</strong><br/>
                                           du PageRank total
                                         </div>
                                         <div>
-                                          <strong>{item.averagePageRank.toFixed(6)}</strong><br/>
+                                          <strong>{(item?.averagePageRank || 0).toFixed(6)}</strong><br/>
                                           PR moyen tranche
                                         </div>
                                       </div>
@@ -972,7 +972,7 @@ const ProjectDetail: React.FC = () => {
                                     <div>
                                       <strong>PageRank moyen:</strong><br/>
                                       <span style={{ color: '#52c41a', fontSize: '14px', fontWeight: 'bold' }}>
-                                        {avgPR.toFixed(6)}
+                                        {(avgPR || 0).toFixed(6)}
                                       </span>
                                     </div>
                                     <div>
@@ -981,7 +981,7 @@ const ProjectDetail: React.FC = () => {
                                         {pages.filter(p => p.current_pagerank > avgPR * 2).length}
                                       </span>
                                       <span style={{ color: '#666', fontSize: '10px' }}>
-                                        {' '}({((pages.filter(p => p.current_pagerank > avgPR * 2).length / totalPages) * 100).toFixed(1)}%)
+                                        {' '}({((pages.filter(p => p.current_pagerank > avgPR * 2).length / totalPages) * 100 || 0).toFixed(1)}%)
                                       </span>
                                     </div>
                                     <div>
@@ -990,7 +990,7 @@ const ProjectDetail: React.FC = () => {
                                         {pages.filter(p => p.current_pagerank < avgPR * 0.3).length}
                                       </span>
                                       <span style={{ color: '#666', fontSize: '10px' }}>
-                                        {' '}({((pages.filter(p => p.current_pagerank < avgPR * 0.3).length / totalPages) * 100).toFixed(1)}%)
+                                        {' '}({((pages.filter(p => p.current_pagerank < avgPR * 0.3).length / totalPages) * 100 || 0).toFixed(1)}%)
                                       </span>
                                     </div>
                                   </div>
@@ -1014,13 +1014,13 @@ const ProjectDetail: React.FC = () => {
                                       }
                                       
                                       if (concentration > 10) {
-                                        insights.push(`✅ Bonne répartition avec ${concentration.toFixed(1)}% de pages performantes`);
+                                        insights.push(`✅ Bonne répartition avec ${(concentration || 0).toFixed(1)}% de pages performantes`);
                                       } else {
-                                        insights.push(`⚠️ Seulement ${concentration.toFixed(1)}% de pages performantes`);
+                                        insights.push(`⚠️ Seulement ${(concentration || 0).toFixed(1)}% de pages performantes`);
                                       }
                                       
                                       if (lowPages > totalPages * 0.3) {
-                                        insights.push(`🚨 ${lowPages} pages nécessitent une attention (${((lowPages/totalPages)*100).toFixed(1)}%)`);
+                                        insights.push(`🚨 ${lowPages} pages nécessitent une attention (${((lowPages/totalPages)*100 || 0).toFixed(1)}%)`);
                                       }
                                       
                                       const orphanPages = pages.filter(p => p.current_pagerank < avgPR * 0.01).length;
@@ -1073,7 +1073,7 @@ const ProjectDetail: React.FC = () => {
                               </Tag>
                             </div>
                             <div style={{ fontSize: '16px', fontWeight: 'bold', color: stats.average_pagerank > effectiveAnalysis.average_pagerank ? '#52c41a' : '#666' }}>
-                              {stats.average_pagerank.toFixed(6)}
+                              {(stats?.average_pagerank || 0).toFixed(6)}
                             </div>
                             <div style={{ fontSize: '10px', color: '#666', marginTop: '2px' }}>PageRank moyen</div>
                             <div style={{ fontSize: '9px', color: '#999', marginTop: '2px' }}>
@@ -1112,12 +1112,12 @@ const ProjectDetail: React.FC = () => {
                         
                         // Seuils globaux utilisés pour TOUS les types
                         const globalRanges = [
-                          { min: globalP95, max: Infinity, label: `${globalP95.toFixed(6)}+ (top 5%)`, color: '#722ed1' },
-                          { min: globalP90, max: globalP95, label: `${globalP90.toFixed(6)}-${globalP95.toFixed(6)} (top 10%)`, color: '#1f5582' },
-                          { min: globalP75, max: globalP90, label: `${globalP75.toFixed(6)}-${globalP90.toFixed(6)} (top 25%)`, color: '#389e0d' },
-                          { min: globalP50, max: globalP75, label: `${globalP50.toFixed(6)}-${globalP75.toFixed(6)} (médiane)`, color: '#52c41a' },
-                          { min: globalP25, max: globalP50, label: `${globalP25.toFixed(6)}-${globalP50.toFixed(6)} (inf. médiane)`, color: '#95de64' },
-                          { min: 0, max: globalP25, label: `0-${globalP25.toFixed(6)} (bottom 25%)`, color: '#d9d9d9' }
+                          { min: globalP95, max: Infinity, label: `${(globalP95 || 0).toFixed(6)}+ (top 5%)`, color: '#722ed1' },
+                          { min: globalP90, max: globalP95, label: `${(globalP90 || 0).toFixed(6)}-${(globalP95 || 0).toFixed(6)} (top 10%)`, color: '#1f5582' },
+                          { min: globalP75, max: globalP90, label: `${(globalP75 || 0).toFixed(6)}-${(globalP90 || 0).toFixed(6)} (top 25%)`, color: '#389e0d' },
+                          { min: globalP50, max: globalP75, label: `${(globalP50 || 0).toFixed(6)}-${(globalP75 || 0).toFixed(6)} (médiane)`, color: '#52c41a' },
+                          { min: globalP25, max: globalP50, label: `${(globalP25 || 0).toFixed(6)}-${(globalP50 || 0).toFixed(6)} (inf. médiane)`, color: '#95de64' },
+                          { min: 0, max: globalP25, label: `0-${(globalP25 || 0).toFixed(6)} (bottom 25%)`, color: '#d9d9d9' }
                         ].filter(range => range.min !== range.max);
                         
                         return Object.entries(effectiveAnalysis.type_distribution || {}).map(([type, stats]) => {
