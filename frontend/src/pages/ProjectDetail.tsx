@@ -695,7 +695,7 @@ const ProjectDetail: React.FC = () => {
                   }
                 >
                   <div>
-                    {Object.entries(effectiveAnalysis.type_distribution).map(([type, stats]) => (
+                    {Object.entries(effectiveAnalysis.type_distribution || {}).map(([type, stats]) => (
                       <div key={type} style={{ marginBottom: 12 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                           <Space>
@@ -1056,7 +1056,7 @@ const ProjectDetail: React.FC = () => {
                 <Col xs={24} lg={12}>
                   <Card title="📋 PageRank moyen par type de page" style={{ height: '400px', borderRadius: '12px' }}>
                     <div style={{ height: '340px', overflowY: 'auto', padding: '12px' }}>
-                      {Object.entries(effectiveAnalysis.type_distribution).map(([type, stats]) => {
+                      {Object.entries(effectiveAnalysis.type_distribution || {}).map(([type, stats]) => {
                         // const avgChange = (stats.average_pagerank / effectiveAnalysis.average_pagerank - 1) * 100;
                         return (
                           <div key={type} style={{ 
@@ -1120,7 +1120,7 @@ const ProjectDetail: React.FC = () => {
                           { min: 0, max: globalP25, label: `0-${globalP25.toFixed(6)} (bottom 25%)`, color: '#d9d9d9' }
                         ].filter(range => range.min !== range.max);
                         
-                        return Object.entries(effectiveAnalysis.type_distribution).map(([type, stats]) => {
+                        return Object.entries(effectiveAnalysis.type_distribution || {}).map(([type, stats]) => {
                           const typePages = pages.filter(p => p.type === type);
                           
                           // Appliquer les MÊMES seuils globaux à chaque type
