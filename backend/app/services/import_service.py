@@ -1,4 +1,6 @@
 import pandas as pd
+import re
+import html
 from typing import List, Dict, Optional, Tuple
 from urllib.parse import urlparse, urljoin
 from app.repositories.base import ProjectRepository, PageRepository, LinkRepository
@@ -669,6 +671,44 @@ class ImportService:
             "links_imported": len(links_data)
         }
     
+    def _clean_html_content(self, content: str) -> str:
+        """
+        Clean HTML content by removing dangerous scripts, styles and HTML tags
+        while preserving text content and decoding HTML entities
+        """
+        if not content or pd.isna(content):
+            return ""
+        
+        content = str(content)
+        
+        # Step 1: Remove dangerous tags and their content entirely
+        dangerous_tags = ['script', 'style', 'noscript', 'iframe', 'object', 'embed']
+        for tag in dangerous_tags:
+            # Remove opening tag, content, and closing tag (case insensitive, multiline)
+            pattern = f'<{tag}[^>]*>.*?</{tag}>'
+            content = re.sub(pattern, ' ', content, flags=re.IGNORECASE | re.DOTALL)
+            # Also remove self-closing versions
+            pattern = f'<{tag}[^>]*/?>'
+            content = re.sub(pattern, ' ', content, flags=re.IGNORECASE)
+        
+        # Step 2: Remove HTML comments
+        content = re.sub('<!--.*?-->', ' ', content, flags=re.DOTALL)
+        
+        # Step 3: Remove all remaining HTML tags but keep the text content
+        content = re.sub('<[^>]+>', ' ', content)
+        
+        # Step 4: Decode HTML entities (like &amp; &lt; &gt; &quot; &#x27; etc.)
+        content = html.unescape(content)
+        
+        # Step 5: Clean up whitespace
+        # Replace multiple whitespace characters (spaces, tabs, newlines) with single space
+        content = re.sub(r'\s+', ' ', content)
+        
+        # Step 6: Strip leading/trailing whitespace
+        content = content.strip()
+        
+        return content
+    
     def _merge_content_columns(self, row: pd.Series) -> Optional[str]:
         """Merge multiple content columns (Content, Content 1, Content 2, etc.) intelligently"""
         
@@ -689,7 +729,10 @@ class ImportService:
             if col_name in row.index and pd.notna(row[col_name]):
                 content_value = str(row[col_name]).strip()
                 if content_value and content_value.lower() not in ['nan', 'none', '']:
-                    content_columns.append(content_value)
+                    # Clean HTML content before adding
+                    cleaned_content = self._clean_html_content(content_value)
+                    if cleaned_content:  # Only add if content remains after cleaning
+                        content_columns.append(cleaned_content)
         
         if not content_columns:
             return None
@@ -735,7 +778,10 @@ class ImportService:
             if col_name in row.index and pd.notna(row[col_name]):
                 title_value = str(row[col_name]).strip()
                 if title_value and title_value.lower() not in ['nan', 'none', '']:
-                    return title_value
+                    # Clean HTML from titles as well
+                    cleaned_title = self._clean_html_content(title_value)
+                    if cleaned_title:
+                        return cleaned_title
         
         return None
     
